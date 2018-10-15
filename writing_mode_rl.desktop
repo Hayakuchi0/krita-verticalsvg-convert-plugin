@@ -1,1 +1,8 @@
-/home/sato/.local/share/krita/pykrita/writing_mode_rl.desktop
+[Desktop Entry]
+Type=Service
+ServiceTypes=Krita/PythonPlugin
+X-KDE-Library=writing_mode_rl
+X-Python2-Compatible=false
+X-Krita-Manuak=writingModelRlManual.html
+Name=Writing Mode RL
+Comment=Text to SVG for Instant Write Verticaily Plugin
