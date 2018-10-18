@@ -18,10 +18,17 @@ class WritingModeRLDocker(DockWidget):
             convertButtons
         )
         buttonCopyToClipboard.clicked.connect(self.copyToClipboard)
-        buttonOutputSVG = QPushButton("Output SVG", convertButtons)
+        buttonOutputSVG = QPushButton(
+            "Output SVG",
+            convertButtons
+        )
         buttonOutputSVG.clicked.connect(self.outputSVG)
         buttonBoth = QPushButton("Both", convertButtons)
         buttonBoth.clicked.connect(self.both)
+
+        convertTextLabels = QWidget(mainWidget)
+        inputTextLabel = QLabel("Input Text", convertTextLabels)
+        outputTextLabel = QLabel("Output SVG", convertTextLabels)
 
         convertTexts = QWidget(mainWidget)
         self.inputText = QPlainTextEdit(convertTexts)
@@ -31,9 +38,36 @@ class WritingModeRLDocker(DockWidget):
         )
         self.outputText.setReadOnly(True)
 
+        fontNames = QWidget(mainWidget)
+        fontSelectorLabel = QLabel("font family", fontNames)
+        self.fontSelector = QFontComboBox(fontNames)
+
         fontOptionDatas = QWidget(mainWidget)
-        self.fontSelector = QFontComboBox(fontOptionDatas)
-        self.fontColorDialog = QColorDialog(fontOptionDatas)
+        fontColorParts = QWidget(mainWidget)
+        fontColorParts.setLayout(QHBoxLayout())
+        fontColorLabel = QLabel("font color", fontColorParts)
+        self.fontColorButton = QPushButton("■", fontColorParts)
+        self.fontColorButton.clicked.connect(self.openTextColorDialog)
+        self.fontColorDialog = QColorDialog(mainWidget)
+        self.fontColorDialog.colorSelected.connect(self.selectedColor)
+        self.fontColorCombo = QComboBox(fontOptionDatas)
+        self.fontColorCombo.setEditable(True)
+        self.fontColorCombo.addItems(
+            [
+                "#000000",
+                "#7f7f7f",
+                "#ffffff",
+                "#ff0000",
+                "#ffff00",
+                "#00ff00",
+                "#00ffff",
+                "#0000ff",
+                "#ff00ff"
+            ]
+        )
+        self.fontColorCombo.editTextChanged.connect(self.colorChanged)
+        fontColorParts.layout().addWidget(fontColorLabel)
+        fontColorParts.layout().addWidget(self.fontColorButton)
         fontSizeLabel = QLabel("font size(pt)", fontOptionDatas)
         self.fontSizeCombo = QComboBox(fontOptionDatas)
         self.fontSizeCombo.setEditable(True)
@@ -61,10 +95,19 @@ class WritingModeRLDocker(DockWidget):
         )
         self.fontSizeCombo.setEditText("8")
 
+        fontNames.setLayout(QHBoxLayout())
+        fontNames.layout().addWidget(fontSelectorLabel)
+        fontNames.layout().addWidget(self.fontSelector)
+
         fontOptionDatas.setLayout(QHBoxLayout())
-        fontOptionDatas.layout().addWidget(self.fontSelector)
+        fontOptionDatas.layout().addWidget(fontColorParts)
+        fontOptionDatas.layout().addWidget(self.fontColorCombo)
         fontOptionDatas.layout().addWidget(fontSizeLabel)
         fontOptionDatas.layout().addWidget(self.fontSizeCombo)
+
+        convertTextLabels.setLayout(QHBoxLayout())
+        convertTextLabels.layout().addWidget(inputTextLabel)
+        convertTextLabels.layout().addWidget(outputTextLabel)
 
         convertTexts.setLayout(QHBoxLayout())
         convertTexts.layout().addWidget(self.inputText)
@@ -76,12 +119,25 @@ class WritingModeRLDocker(DockWidget):
         convertButtons.layout().addWidget(buttonBoth)
 
         mainWidget.setLayout(QVBoxLayout())
+        mainWidget.layout().addWidget(fontNames)
         mainWidget.layout().addWidget(fontOptionDatas)
         mainWidget.layout().addWidget(convertButtons)
+        mainWidget.layout().addWidget(convertTextLabels)
         mainWidget.layout().addWidget(convertTexts)
 
     def canvasChanged(self, canvas):
         pass
+
+    def openTextColorDialog(self):
+        self.fontColorDialog.open()
+
+    def selectedColor(self, color):
+        self.fontColorCombo.setEditText(color.name())
+
+    def colorChanged(self, text):
+        self.fontColorButton.setStyleSheet(
+            "color:" + text + ";"
+        )
 
     def both(self):
         self.outputSVG()
@@ -107,15 +163,9 @@ class WritingModeRLDocker(DockWidget):
                 y = 0
                 x -= 1.2
             else:
-                editedType = self.__editedText(part)
-                editedTextX = 0
-                editedTextY = 0
-                if editedType == 1:
-                    editedTextX = 0.2
-                    editedTextY = -0.2
-                elif editedType == 2:
-                    editedTextX = 0.7
-                    editedTextY = -0.7
+                editedType = WritingModeRLDocker.__editedText(part)
+                editedTextX = WritingModeRLDocker.__getEditedX(editedType)
+                editedTextY = WritingModeRLDocker.__getEditedY(editedType)
                 resultX = x + editedTextX
                 resultY = y + editedTextY
                 editingText = editingText + "  <tspan x=\"" + \
@@ -125,17 +175,32 @@ class WritingModeRLDocker(DockWidget):
         outText = "<text style=\"font-family:" + \
             self.fontSelector.currentText() + \
             ";font-size:"+self.fontSizeCombo.currentText() + \
-            ";fill:" + "#000000"+"\">\n" + \
+            ";fill:" + self.fontColorCombo.currentText() + "\">\n" + \
             editingText + "</text>"
-        print(self.fontSizeCombo.currentText())
-        print(self.fontSelector.currentText())
         return outText
 
-    def __editedText(self, part):
+    @staticmethod
+    def __editedText(part):
         if part in "っゃゅょぁぃぅぇぉッャュョァィゥェォ":
             return 1
         elif part in "。、,.":
             return 2
+        return 0
+
+    @staticmethod
+    def __getEditedX(typeNumber):
+        if typeNumber == 1:
+            return 0.2
+        elif typeNumber == 2:
+            return 0.7
+        return 0
+
+    @staticmethod
+    def __getEditedY(typeNumber):
+        if typeNumber == 1:
+            return -0.2
+        elif typeNumber == 2:
+            return -0.7
         return 0
 
 
