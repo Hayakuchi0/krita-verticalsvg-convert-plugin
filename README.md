@@ -12,14 +12,17 @@ Kritaで入力した文字列を縦書きSVGに変換するDockerを出現させ
 
 # Dependencies
 
-krita >= 4.0.1
-Linux版でのみ確認。(Mac OSXではPythonプラグインの使用が不可能との情報あり。)
+* krita >= 4.0.1
+	* Ubuntu18.04
+* krita >= 4.1.1
+	* Windows7
+で確認。
 
 # Install
 
 ## Windowsの場合
 
-作成中です。
+installscriptフォルダ内のinstall_windows.batを実行してください。
 
 ## Linuxの場合
 

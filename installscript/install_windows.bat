@@ -1,2 +1,4 @@
-move %~dp0%..\writing_mode_rl %homepath%AppData\Roaming\krita\pykrita\
-move %~dp0%..\writing_mode_rl.desktop %homepath%AppData\Roaming\krita\pykrita\
+cd "%~dp0%..\"
+
+move writing_mode_rl %homedrive%%homepath%\AppData\Roaming\krita\pykrita\
+move writing_mode_rl.desktop %homedrive%%homepath%\AppData\Roaming\krita\pykrita\
