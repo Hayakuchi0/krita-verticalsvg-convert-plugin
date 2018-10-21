@@ -15,17 +15,24 @@ Kritaで入力した文字列を縦書きSVGに変換するDockerを出現させ
 krita >= 4.0.1
 Linux版でのみ確認。(Mac OSXではPythonプラグインの使用が不可能との情報あり。)
 
-# Install for linux
+# Install
 
-1. 以下のコマンドを端末から入力します。（コピペが望ましいです。）
+## Windowsの場合
+
+作成中です。
+
+## Linuxの場合
+
+1. 以下のコマンドを端末から入力します。なお、リポジトリを削除及び移動しない場合は2つ目のコマンドの第一引数にlnと指定してください。(コピーの代わりにシンボリックリンクの作成を行います。)
 ```
 git clone https://github.com/Hayakuchi0/krita-verticalsvg-convert-plugin.git
-ln -s `pwd`/krita-verticalsvg-convert-plugin/writing_mode_rl ~/.local/share/krita/pykrita
-ln -s `pwd`/krita-verticalsvg-convert-plugin/writing_mode_rl.desktop ~/.local/share/krita/pykrita
+./krita-verticalsvg-convert-plugin/installscript/install_linux.sh
 ```
+
 2. Kritaを起動し、Settings → Configure Krita... → Python Plugin Managerを選びます。
 3. Writing Mode RLにチェックをつけ、再起動します。
 4. Create Vertical Writingが表示されていたら成功です。非表示にした場合、Settings → Dockers → Create Vertical Writingを選ぶことで再度出現させることができます。
+
 
 # Usage
 
