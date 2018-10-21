@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QColorDialog,\
     QFontComboBox
 from krita import Krita, DockWidget, DockWidgetFactory, DockWidgetFactoryBase
 import copy
+import html
+from .definelocate import DefineLocate
 
 
 class WritingModeRLDocker(DockWidget):
@@ -66,6 +68,7 @@ class WritingModeRLDocker(DockWidget):
             ]
         )
         self.fontColorCombo.editTextChanged.connect(self.colorChanged)
+        self.colorChanged(self.fontColorCombo.currentText())
         fontColorParts.layout().addWidget(fontColorLabel)
         fontColorParts.layout().addWidget(self.fontColorButton)
         fontSizeLabel = QLabel("font size(pt)", fontOptionDatas)
@@ -163,14 +166,19 @@ class WritingModeRLDocker(DockWidget):
                 y = 0
                 x -= 1.2
             else:
-                editedType = WritingModeRLDocker.__editedText(part)
-                editedTextX = WritingModeRLDocker.__getEditedX(editedType)
-                editedTextY = WritingModeRLDocker.__getEditedY(editedType)
+                editedTextX = DefineLocate.getEditedX(
+                    part,
+                    self.fontSizeCombo.currentText()
+                )
+                editedTextY = DefineLocate.getEditedY(
+                    part,
+                    self.fontSizeCombo.currentText()
+                )
                 resultX = x + editedTextX
                 resultY = y + editedTextY
                 editingText = editingText + "  <tspan x=\"" + \
                     str(resultX) + "em\" y=\"" + str(resultY) + "em\">" + \
-                    part + "</tspan>\n"
+                    html.escape(part) + "</tspan>\n"
                 y += 1.2
         outText = "<text style=\"font-family:" + \
             self.fontSelector.currentText() + \
@@ -178,30 +186,6 @@ class WritingModeRLDocker(DockWidget):
             ";fill:" + self.fontColorCombo.currentText() + "\">\n" + \
             editingText + "</text>"
         return outText
-
-    @staticmethod
-    def __editedText(part):
-        if part in "っゃゅょぁぃぅぇぉッャュョァィゥェォ":
-            return 1
-        elif part in "。、,.":
-            return 2
-        return 0
-
-    @staticmethod
-    def __getEditedX(typeNumber):
-        if typeNumber == 1:
-            return 0.2
-        elif typeNumber == 2:
-            return 0.7
-        return 0
-
-    @staticmethod
-    def __getEditedY(typeNumber):
-        if typeNumber == 1:
-            return -0.2
-        elif typeNumber == 2:
-            return -0.7
-        return 0
 
 
 Krita.instance().addDockWidgetFactory(

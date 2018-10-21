@@ -1,12 +1,13 @@
 # krita-verticalsvg-convert-plugin
 
-Kritaで入力した文字列を縦書きSVGに変換するスクリプト。
+Kritaで入力した文字列を縦書きSVGに変換するDockerを出現させるスクリプト
 
 # Description
 
-文字列を入力し、「Output SVG」または「Copy to Clipboard」をクリックすると、その入力テキストを縦書きで表示するSVGを出力するプラグイン。
-また、「Copy to Clipboard」をクリックした場合、クリップボードへのコピーを行う。
-このSVGテキストは、Tool EditorのSVG Sourceタブ内、SVGの文字列をそのコピーした文字列を置換して、Saveを押すことで縦書きのテキストを貼り付ける。
+文字列を入力し「Output SVG」をクリックすると、その入力テキストを縦書きで表示するSVGを出力するプラグインです。
+また、「Copy to Clipboard」をクリックした場合、出力したSVGをクリップボードへのコピーすることができます。
+「Both」を押すと両方が可能です。
+このSVGテキストは、Tool EditorのSVG Sourceタブ内、SVGの文字列をそのコピーした文字列を置換して、Saveを押すことで縦書きのテキストを貼り付けることができます。
 
 
 # Dependencies
@@ -30,11 +31,17 @@ ln -s `pwd`/krita-verticalsvg-convert-plugin/writing_mode_rl.desktop ~/.local/sh
 
 ## 基本的な使い方
 
-Create Vertical WritingというDocker内の最下部に、２つの入力欄がある。
-その左側の入力欄に縦書きとして貼り付けたいテキストを横書きで入力し、BothをクリックしてSVGテキストをクリップボードにコピーする。
-このSVGテキストは、Tool EditorのSVG Sourceタブ内、SVGの文字列をそのコピーした文字列を置換して、Saveを押すことで縦書きのテキストを貼り付ける。
+1. Create Vertical WritingというDocker内の最下部にある左側入力欄に縦書きとして貼り付けたいテキストを横書きで入力します。
+2. BothをクリックしてSVGテキストをクリップボードにコピーします。
+3. Tool EditorのSVG Sourceタブを開き、既存のSVGテキストを削除します。
+4. 2でコピーしたSVGの文字列を貼り付けます。
+5. Saveを押すことで縦書きのテキストを貼り付けることができます。
 
 ## 各項目について
+
+### font-color
+
+使用するフォントの色を選びます。
 
 ### font-family
 
@@ -60,7 +67,7 @@ Create Vertical WritingというDocker内の最下部に、２つの入力欄が
 
 # LICENSE
 
-未定
+[MIT](https://github.com/Hayakuchi0/krita-verticalsvg-convert-plugin/blob/master/LICENSE)
 
 # Author
 
