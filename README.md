@@ -5,24 +5,22 @@ Kritaで入力した文字列を縦書きSVGに変換するDockerを出現させ
 # Description
 
 文字列を入力し「Output SVG」をクリックすると、その入力テキストを縦書きで表示するSVGを出力するプラグインです。
-また、「Copy to Clipboard」をクリックした場合、出力したSVGをクリップボードへのコピーすることができます。
-「Both」を押すと両方が可能です。
 このSVGテキストは、Tool EditorのSVG Sourceタブ内、SVGの文字列をそのコピーした文字列を置換して、Saveを押すことで縦書きのテキストを貼り付けることができます。
 
 
 # Dependencies
 
 * krita >= 4.0.1
-	* Ubuntu18.04
+	* Ubuntu18.04で確認
 * krita >= 4.1.1
-	* Windows7
-で確認。
+	* Windows7で確認
 
 # Install
 
 ## Windowsの場合
 
 installscriptフォルダ内のinstall_windows.batを実行してください。
+その後、kritaを起動して設定\(N\) → Kritaの設定を変更\(C\) → Pythonプラグインマネージャ → Writing Mode RL にチェックをつけ、kritaを再起動してください。
 
 ## Linuxの場合
 
@@ -41,7 +39,7 @@ git clone https://github.com/Hayakuchi0/krita-verticalsvg-convert-plugin.git
 
 ## 基本的な使い方
 
-1. Create Vertical WritingというDocker内の最下部にある左側入力欄に縦書きとして貼り付けたいテキストを横書きで入力します。
+1. Create Vertical WritingというDocker内の最下部にあるInput Textに縦書きとして貼り付けたいテキストを横書きで入力します。
 2. BothをクリックしてSVGテキストをクリップボードにコピーします。
 3. Tool EditorのSVG Sourceタブを開き、既存のSVGテキストを削除します。
 4. 2でコピーしたSVGの文字列を貼り付けます。

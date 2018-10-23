@@ -3,6 +3,6 @@ Type=Service
 ServiceTypes=Krita/PythonPlugin
 X-KDE-Library=writing_mode_rl
 X-Python2-Compatible=false
-X-Krita-Manuak=writingModelRlManual.html
+X-Krita-Manual=Manual.html
 Name=Writing Mode RL
 Comment=Text to SVG for Instant Write Verticaily Plugin

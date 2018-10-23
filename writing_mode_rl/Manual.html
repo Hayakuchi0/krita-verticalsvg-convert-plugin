@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>
+			Writing Mode RL Plugin Manual
+		</title>
+	</head>
+	<body>
+		<h1>Writing Mode RL Plugin</h1>
+		<p>
+			縦書きのような形となるSVGを生成する為のプラグインです。<br>
+			<strong>正確な縦書きを行うわけではありません。</strong>一定のルールに従って(一部文字以外)中央寄せで設置します。<br>
+			また、鉤括弧、イコール、長音などの回転が必要な文字を使用することはできません。<br>
+			公式による縦書きのサポートが開始されるまでのつなぎとして作ったものです。<br>
+		</p>
+		<h2 id="basic-usage">Basic Usage</h2>
+		<ol>
+			<li>Input Textに元となるテキストを入力</li>
+			<li>Bothをクリック</li>
+			<li>Tool Editorを開く</li>
+			<li>SVG Sourceタブを開き、既存のSVGテキストを削除</li>
+			<li>クリップボードにコピーしたテキストを貼り付け</li>
+			<li>Saveを押す</li>
+			<li>Closeを押す</li>
+		</ol>
+		<h2>Usage</h2>
+		<p>
+			<strong>ドッキングパネル(D) → Create Vertical Writing</strong>にチェックをつけることでこのDockerを出現させることができます。<br>
+		</p>
+		<h3>font-color</h3>
+		<p>
+			使用するフォントの色を選びます。<br>
+			ボタンをクリックするとQt標準の色選択ダイアログが出現します。<br>
+			また、直接入力することも可能です。<br>
+		</p>
+		<h3>font-family</h3>
+		<p>
+			使用するフォント名を選びます。
+		</p>
+		<h3>font size(pt)</h3>
+		<p>
+			ポイント単位でのフォントサイズを指定します。直接入力しても、プルダウンで選んでもよいです。
+		</p>
+		<h3>Output SVG</h3>
+		<p>
+			このボタンを押すと、Input Textの内容を、縦書き表示にしたSVGに変換しOutput SVGに書き込みます。
+		</p>
+		<h3>Copy to Clipboard</h3>
+		<p>
+			このボタンを押すと、Output SVGの内容をすべてクリップボードにコピーします。 (右クリックでのコピーと同じ処理です。)
+		</p>
+		<h3>Both</h3>
+		<p>
+			上記の「Output SVG」と「Copy to Clipboard」の両方、つまりSVGに変換し右側の入力欄へ書き込み、それをコピーすることができます。
+		</p>
+	</body>
+</html>
