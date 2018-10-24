@@ -50,7 +50,7 @@ class DefineLocate:
     def getEditedX(part, fontFamily):
         typeNumber = DefineLocate.__editedText(part)
         if typeNumber == 1:
-            return 0.18
+            pass
         elif typeNumber == 2:
             return 0.7
         return DefineLocate.characterWidth(part, fontFamily)
