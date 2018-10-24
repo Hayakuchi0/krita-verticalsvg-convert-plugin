@@ -51,7 +51,7 @@ class DefineLocate:
         typeNumber = DefineLocate.__editedText(part)
         coefficient = 1.0
         if typeNumber == 1:
-            coefficient = 2.0
+            coefficient = 1.2
         elif typeNumber == 2:
             return 0.7
         return DefineLocate.characterWidth(part, fontFamily) * coefficient
